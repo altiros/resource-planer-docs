@@ -1,0 +1,71 @@
+# Users API
+
+## Alle Benutzer
+
+```
+GET /api/v1/users
+```
+
+Gibt alle Benutzer mit Rollen, Teams und Buchungsanzahl zurück.
+
+## Benutzer anlegen
+
+```
+POST /api/v1/users
+```
+
+```json
+{
+  "name": "Max Mustermann",
+  "email": "max@example.com",
+  "role": "MEMBER"
+}
+```
+
+**Rollen:** `ADMIN`, `MANAGER`, `MEMBER`
+
+## Benutzer bearbeiten
+
+```
+PATCH /api/v1/users/:id
+```
+
+## Benutzer löschen
+
+```
+DELETE /api/v1/users/:id?removeFromTeams=true
+```
+
+Wenn der Benutzer Team-Mitgliedschaften hat, muss `removeFromTeams=true` gesetzt werden.
+
+## Arbeitszeiten
+
+```
+GET /api/v1/users/:id/work-schedules
+PUT /api/v1/users/:id/work-schedules
+```
+
+```json
+{
+  "schedules": [
+    { "dayOfWeek": 0, "startTime": "08:00", "endTime": "17:00" },
+    { "dayOfWeek": 1, "startTime": "08:00", "endTime": "17:00" }
+  ]
+}
+```
+
+`dayOfWeek`: 0=Montag, 1=Dienstag, ..., 6=Sonntag
+
+## Funktionale Rollen zuweisen
+
+```
+POST /api/v1/users/:id/roles
+```
+
+```json
+{ "roleId": "role-id" }
+```
+
+```
+DELETE /api/v1/users/:id/roles?roleId=role-id
+```

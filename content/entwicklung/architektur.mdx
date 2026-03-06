@@ -1,0 +1,37 @@
+# Architektur
+
+## Überblick
+
+Der Ressourcenplaner ist eine Full-Stack Next.js-Anwendung mit klarer Trennung zwischen Web-App und REST-API.
+
+```
+Browser → Next.js App Router → API Client → REST API → Prisma → PostgreSQL
+                                                ↑
+                              Externe Systeme ───┘ (API-Key Auth)
+```
+
+## Designentscheidungen
+
+### Interner API-Client
+
+Die Web-App greift über einen internen HTTP-Client (`src/lib/api-client.ts`) auf die REST-API zu, statt direkt auf die Datenbank. Das ermöglicht eine spätere Trennung von Frontend und Backend.
+
+### Server Actions
+
+Schreibende Operationen (Erstellen, Bearbeiten, Löschen) werden als Server Actions in `src/app/(app)/actions.ts` implementiert. Diese rufen ebenfalls den API-Client auf.
+
+### Authentifizierung
+
+Zwei Authentifizierungspfade:
+- **Web-App**: Session-Cookie via NextAuth
+- **Externe API**: API-Key als Bearer-Token
+
+Die API-Route-Handler prüfen beides über `validateApiAccess()`.
+
+## Tech Stack
+
+- **Next.js 16** mit App Router und Turbopack
+- **Prisma 7** mit PostgreSQL via Driver Adapter (`@prisma/adapter-pg`)
+- **NextAuth v5** mit generischem OIDC-Provider
+- **Tailwind CSS 4** mit PostCSS
+- **TypeScript** durchgehend

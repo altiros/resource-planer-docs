@@ -1,0 +1,35 @@
+# Roles API
+
+## Alle Rollen
+
+```
+GET /api/v1/roles
+```
+
+Gibt alle funktionalen Rollen mit zugewiesenen Benutzern und Teams zurück.
+
+## Rolle anlegen
+
+```
+POST /api/v1/roles
+```
+
+```json
+{
+  "name": "Entwickler",
+  "description": "Software-Entwicklung und Programmierung",
+  "color": "#2563eb"
+}
+```
+
+## Rolle bearbeiten
+
+```
+PATCH /api/v1/roles/:id
+```
+
+## Rolle löschen
+
+```
+DELETE /api/v1/roles/:id
+```

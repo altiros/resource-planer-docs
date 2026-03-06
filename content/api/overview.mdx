@@ -1,0 +1,50 @@
+# API-Übersicht
+
+Die REST-API steht unter `/api/v1/` zur Verfügung.
+
+## Authentifizierung
+
+Alle Endpunkte erfordern entweder:
+- **API-Key** als Bearer-Token: `Authorization: Bearer <key>`
+- **Session-Cookie** (für interne Aufrufe der Web-App)
+
+## Antwortformat
+
+Alle Antworten folgen diesem Schema:
+
+```json
+{
+  "data": { ... }
+}
+```
+
+Bei Fehlern:
+
+```json
+{
+  "error": "Fehlerbeschreibung"
+}
+```
+
+## Endpunkte
+
+| Methode | Pfad | Beschreibung |
+|---|---|---|
+| GET | `/api/v1/users` | Alle Benutzer |
+| POST | `/api/v1/users` | Benutzer anlegen |
+| GET | `/api/v1/users/:id` | Benutzer-Details |
+| PATCH | `/api/v1/users/:id` | Benutzer bearbeiten |
+| DELETE | `/api/v1/users/:id` | Benutzer löschen |
+| GET | `/api/v1/teams` | Alle Teams |
+| POST | `/api/v1/teams` | Team anlegen |
+| GET | `/api/v1/teams/:id` | Team-Details |
+| DELETE | `/api/v1/teams/:id` | Team löschen |
+| GET | `/api/v1/bookings` | Alle Buchungen |
+| POST | `/api/v1/bookings` | Buchung erstellen |
+| GET | `/api/v1/bookings/:id` | Buchung-Details |
+| PATCH | `/api/v1/bookings/:id` | Buchung bearbeiten |
+| DELETE | `/api/v1/bookings/:id` | Buchung löschen |
+| GET | `/api/v1/roles` | Alle Rollen |
+| POST | `/api/v1/roles` | Rolle anlegen |
+| POST | `/api/v1/slots` | Freie Slots suchen |
+| GET | `/api/v1/stats` | Dashboard-Statistiken |

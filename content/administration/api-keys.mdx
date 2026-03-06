@@ -1,0 +1,23 @@
+# API-Keys
+
+API-Keys ermöglichen externen Systemen den Zugriff auf die REST-API ohne SSO-Login.
+
+## Verwendung
+
+API-Keys werden als Bearer-Token im Authorization-Header mitgeschickt:
+
+```bash
+curl -H "Authorization: Bearer dev-api-key-change-me" \
+  https://planer.example.com/api/v1/users
+```
+
+## Konfiguration
+
+API-Keys werden in der Datenbank gespeichert (Tabelle `ApiKey`). Jeder Key hat:
+
+- **Name** - Bezeichnung des externen Systems
+- **Key** - Der eigentliche Schlüssel
+- **Aktiv** - Kann deaktiviert werden
+- **Ablaufdatum** - Optionales Ablaufdatum
+
+Aktuell werden API-Keys über die Datenbank oder den Seed verwaltet. Eine UI-Verwaltung ist geplant.

@@ -1,0 +1,37 @@
+# Ressourcenplaner
+
+Der Ressourcenplaner ist eine webbasierte Anwendung zur Planung und Verwaltung von Mitarbeitern, Teams und Buchungen in kleinen und mittleren Unternehmen.
+
+## Funktionsumfang
+
+- **Mitarbeiterverwaltung** - Mitarbeiter anlegen, Rollen zuweisen, Arbeitszeiten definieren
+- **Teamverwaltung** - Teams erstellen, Mitglieder zuordnen, Team-Leads bestimmen
+- **Buchungssystem** - Projekte, Meetings, Urlaub, Krankheit und Schulungen planen
+- **Kalenderansicht** - Alle Buchungen auf einen Blick
+- **Automatische Slot-Suche** - Freie Zeitfenster für Mitarbeiter und Teams finden
+- **Funktionale Rollen** - Fähigkeiten und Qualifikationen verwalten
+- **REST-API** - Integration mit externen Systemen
+- **SSO-Authentifizierung** - Login über OIDC-Provider (z.B. Keycloak)
+
+## Technologie
+
+| Komponente | Technologie |
+|---|---|
+| Frontend & Backend | Next.js 16 (App Router) |
+| Datenbank | PostgreSQL 17 |
+| ORM | Prisma 7 |
+| Authentifizierung | NextAuth v5 + OIDC |
+| UI | Tailwind CSS 4 |
+| Deployment | Docker / Kubernetes |
+
+## Schnellstart
+
+```bash
+git clone https://github.com/altiros/resource-planer.git
+cd resource-planer
+npm install
+bash scripts/setup.sh
+npm run dev
+```
+
+Detaillierte Anweisungen finden Sie unter [Erste Schritte](/getting-started).

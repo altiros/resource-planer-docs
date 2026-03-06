@@ -1,0 +1,53 @@
+# Projektstruktur
+
+```
+resource-planer/
+├── prisma/
+│   ├── schema.prisma          # Datenbankschema
+│   ├── prisma.config.ts       # Prisma 7 Konfiguration
+│   └── seed.ts                # Testdaten (CLI)
+├── scripts/
+│   └── setup.sh               # Lokales Setup-Script
+├── src/
+│   ├── app/
+│   │   ├── (app)/             # Authentifizierte App-Seiten
+│   │   │   ├── layout.tsx     # App-Layout mit Auth + Setup-Check
+│   │   │   ├── loading.tsx    # Loading-Spinner
+│   │   │   ├── page.tsx       # Dashboard
+│   │   │   ├── actions.ts     # Alle Server Actions
+│   │   │   ├── bookings/      # Buchungsseiten
+│   │   │   ├── calendar/      # Kalenderansicht
+│   │   │   ├── members/       # Mitarbeiterverwaltung
+│   │   │   ├── teams/         # Teamverwaltung
+│   │   │   ├── roles/         # Funktionale Rollen
+│   │   │   └── settings/      # Einstellungen
+│   │   ├── api/v1/            # REST-API Route Handlers
+│   │   ├── login/             # Login-Seite
+│   │   └── setup/             # Setup-Wizard
+│   ├── components/
+│   │   ├── ui/                # UI-Komponenten (Button, Card, etc.)
+│   │   ├── nav.tsx            # Sidebar-Navigation
+│   │   └── calendar.tsx       # Kalender-Komponente
+│   └── lib/
+│       ├── auth.ts            # NextAuth-Konfiguration
+│       ├── db.ts              # Prisma-Client Singleton
+│       ├── api-client.ts      # Interner API-Client
+│       ├── api-auth.ts        # API-Authentifizierung
+│       ├── permissions.ts     # Rollen-Checks
+│       ├── conflicts.ts       # Buchungskonflikte
+│       ├── slot-finder.ts     # Slot-Suche
+│       ├── booking-expiry.ts  # TTL für Vorschläge
+│       ├── seed-data.ts       # Beispieldaten (wiederverwendbar)
+│       └── utils.ts           # Hilfsfunktionen
+├── docker-compose.yml
+├── Dockerfile
+└── .env
+```
+
+## Konventionen
+
+- **Sprache**: Deutsch in der UI, Englisch im Code
+- **Server Components**: Alle Seiten sind Server Components mit `force-dynamic`
+- **Client Components**: Nur wo nötig (interaktive Elemente, Navigation)
+- **Actions**: Zentral in `actions.ts`, nutzen den API-Client
+- **API-Routen**: Validierung über `validateApiAccess()`

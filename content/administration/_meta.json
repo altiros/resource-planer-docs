@@ -1,0 +1,5 @@
+{
+  "deployment": "Deployment",
+  "oidc": "OIDC-Provider",
+  "api-keys": "API-Keys"
+}

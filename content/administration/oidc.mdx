@@ -1,0 +1,37 @@
+# OIDC-Provider konfigurieren
+
+Der Ressourcenplaner nutzt einen generischen OIDC-Provider für die Authentifizierung. Jeder OpenID Connect-kompatible Provider kann verwendet werden (Keycloak, Authentik, Azure AD, Google Workspace, etc.).
+
+## Konfiguration
+
+Setzen Sie folgende Umgebungsvariablen:
+
+```env
+AUTH_OIDC_ISSUER=https://keycloak.example.com/realms/resource-planer
+AUTH_OIDC_CLIENT_ID=resource-planer
+AUTH_OIDC_CLIENT_SECRET=<client-secret>
+AUTH_OIDC_PROVIDER_NAME=SSO    # Optional: Name auf dem Login-Button
+```
+
+## Anforderungen an den Provider
+
+Der OIDC-Provider muss:
+
+- OpenID Connect Discovery unterstützen (`/.well-known/openid-configuration`)
+- Einen **Confidential Client** bereitstellen (mit Client-Secret)
+- **Redirect-URIs** konfiguriert haben: `https://ihre-domain.com/api/auth/callback/oidc`
+- E-Mail-Claim im ID-Token liefern
+
+## Keycloak-Beispiel
+
+1. Realm erstellen (z.B. `resource-planer`)
+2. Client erstellen:
+   - Client-ID: `resource-planer`
+   - Client-Typ: OpenID Connect
+   - Client authentication: On
+   - Redirect-URIs: `https://ihre-domain.com/*`
+3. Client-Secret kopieren und als `AUTH_OIDC_CLIENT_SECRET` setzen
+
+## Account-Linking
+
+Wenn Benutzer vor dem ersten SSO-Login bereits in der Datenbank existieren (z.B. als Planungs-Ressource), werden die Accounts automatisch anhand der E-Mail-Adresse verknüpft.

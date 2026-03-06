@@ -1,0 +1,69 @@
+# Datenbank
+
+## Schema-Übersicht
+
+```
+User ──< TeamMembership >── Team
+  │                           │
+  ├──< UserFunctionalRole    ├──< TeamFunctionalRole
+  │         │                 │         │
+  │         v                 │         v
+  │    FunctionalRole ────────┘
+  │
+  ├──< BookingResource >── Booking ──< BookingTeam >── Team
+  │                           │
+  └── createdBookings ────────┘
+```
+
+## Prisma 7 Besonderheiten
+
+Prisma 7 verwendet Driver Adapters. Die Datenbank-URL wird **nicht** im Schema definiert, sondern über den Adapter:
+
+```typescript
+// src/lib/db.ts
+import { PrismaPg } from "@prisma/adapter-pg";
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
+const prisma = new PrismaClient({ adapter });
+```
+
+### CLI-Befehle
+
+Prisma-CLI benötigt immer `--config`:
+
+```bash
+# Umgebungsvariablen laden
+set -a && source .env && set +a
+
+# Schema anwenden
+npx prisma db push --config prisma/prisma.config.ts
+
+# Client generieren
+npx prisma generate --config prisma/prisma.config.ts
+
+# Seed ausführen
+npm run db:seed
+```
+
+## Modelle
+
+### User
+Mitarbeiter im System. Kann SSO-Account haben oder nur als Planungs-Ressource existieren.
+
+### Team
+Gruppierung von Mitarbeitern mit optionaler Farbe und Beschreibung.
+
+### Booking
+Zentrale Entität: Buchung mit Typ, Status, Zeitraum und zugewiesenen Ressourcen.
+- `resources` (m:n) - Zugewiesene Mitarbeiter
+- `teams` (m:n) - Zugewiesene Teams
+- `createdBy` - Ersteller der Buchung
+- `expiresAt` - TTL für automatische Stornierung von Vorschlägen
+
+### FunctionalRole
+Beschreibt Fähigkeiten (Entwickler, Designer, etc.). Kann Usern und Teams zugewiesen werden.
+
+### AppSetting
+Key-Value Store für App-Einstellungen (z.B. `setupCompleted`).
+
+### ApiKey
+Authentifizierungsschlüssel für externe Systeme.

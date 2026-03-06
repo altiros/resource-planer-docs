@@ -1,0 +1,53 @@
+# Deployment
+
+## Docker
+
+Das offizielle Docker-Image ist auf GitHub Container Registry verfügbar:
+
+```bash
+docker pull ghcr.io/altiros/resource-planer:latest
+```
+
+### Docker Compose (Produktion)
+
+```yaml
+services:
+  app:
+    image: ghcr.io/altiros/resource-planer:latest
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://planer:secret@db:5432/resource_planer
+      AUTH_SECRET: <zufälliger-string>
+      AUTH_URL: https://planer.example.com
+      AUTH_OIDC_ISSUER: https://keycloak.example.com/realms/resource-planer
+      AUTH_OIDC_CLIENT_ID: resource-planer
+      AUTH_OIDC_CLIENT_SECRET: <client-secret>
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: planer
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: resource_planer
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+```
+
+## Kubernetes
+
+Die App kann mit einem Standard-Deployment in Kubernetes betrieben werden. Umgebungsvariablen werden als Secret konfiguriert.
+
+## Erster Start
+
+Nach dem Deployment:
+
+1. Datenbankschema anwenden: `npx prisma db push`
+2. App starten
+3. Per SSO einloggen - der erste Benutzer wird automatisch Admin
+4. Im Setup-Wizard wählen, ob Beispieldaten angelegt werden

@@ -1,0 +1,64 @@
+# Bookings API
+
+## Liste aller Buchungen
+
+```
+GET /api/v1/bookings
+```
+
+**Query-Parameter:**
+
+| Parameter | Typ | Beschreibung |
+|---|---|---|
+| `from` | ISO-Date | Startdatum filtern (ab) |
+| `to` | ISO-Date | Enddatum filtern (bis) |
+| `userId` | String | Nach Mitarbeiter filtern |
+| `teamId` | String | Nach Team filtern |
+
+**Beispiel:**
+
+```bash
+curl -H "Authorization: Bearer $API_KEY" \
+  "http://localhost:3000/api/v1/bookings?from=2026-03-01&to=2026-03-31"
+```
+
+## Buchung erstellen
+
+```
+POST /api/v1/bookings
+```
+
+**Body:**
+
+```json
+{
+  "title": "Sprint Planning",
+  "description": "Zweiwöchentliches Planning",
+  "startDate": "2026-03-10",
+  "endDate": "2026-03-10",
+  "allDay": false,
+  "startTime": "09:00",
+  "endTime": "11:00",
+  "type": "MEETING",
+  "resourceUserIds": ["user-id-1", "user-id-2"],
+  "teamIds": ["team-id-1"]
+}
+```
+
+**Buchungstypen:** `PROJECT`, `VACATION`, `SICK`, `TRAINING`, `MEETING`, `OTHER`
+
+**Konflikte:** Bei zeitlichen Überschneidungen wird Status `409` mit Konfliktdetails zurückgegeben.
+
+## Buchung bearbeiten
+
+```
+PATCH /api/v1/bookings/:id
+```
+
+Alle Felder sind optional. Wenn `resourceUserIds` oder `teamIds` übergeben werden, werden die bestehenden Zuweisungen komplett ersetzt.
+
+## Buchung löschen
+
+```
+DELETE /api/v1/bookings/:id
+```

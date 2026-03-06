@@ -1,0 +1,71 @@
+# Erste Schritte
+
+## Voraussetzungen
+
+- **Node.js** 20 oder neuer
+- **Docker** und **Docker Compose** (für PostgreSQL und Keycloak)
+- **Git**
+
+## Installation
+
+### 1. Repository klonen
+
+```bash
+git clone https://github.com/altiros/resource-planer.git
+cd resource-planer
+npm install
+```
+
+### 2. Lokale Umgebung starten
+
+Das Setup-Script startet PostgreSQL und Keycloak per Docker Compose, konfiguriert die Datenbank und legt einen Testbenutzer an:
+
+```bash
+bash scripts/setup.sh
+```
+
+Das Script erledigt automatisch:
+- PostgreSQL und Keycloak Container starten
+- Keycloak-Realm und -Client konfigurieren
+- Testbenutzer `guido.kroemer` mit Passwort `test1234` anlegen
+- Datenbankschema anwenden
+- Testdaten (Benutzer, Teams, Rollen, Buchungen) anlegen
+
+### 3. App starten
+
+```bash
+npm run dev
+```
+
+Die App ist unter [http://localhost:3000](http://localhost:3000) erreichbar.
+
+### 4. Anmelden
+
+Klicken Sie auf **Mit SSO anmelden** und loggen Sie sich mit den Testdaten ein:
+
+| Feld | Wert |
+|---|---|
+| Benutzername | `guido.kroemer` |
+| Passwort | `test1234` |
+
+## Erster Start (Produktion)
+
+Bei einer frischen Installation ohne Seed-Daten erscheint nach dem ersten SSO-Login ein **Setup-Wizard**:
+
+- Der erste Benutzer wird automatisch als **Administrator** eingerichtet
+- Sie können wählen, ob **Beispieldaten** angelegt werden sollen
+- Danach startet die App regulär
+
+## Umgebungsvariablen
+
+Die Konfiguration erfolgt über die `.env`-Datei:
+
+| Variable | Beschreibung | Beispiel |
+|---|---|---|
+| `DATABASE_URL` | PostgreSQL-Verbindung | `postgresql://user:pass@localhost:5432/db` |
+| `AUTH_SECRET` | NextAuth-Secret | Zufälliger String |
+| `AUTH_URL` | Basis-URL der App | `http://localhost:3000` |
+| `AUTH_OIDC_ISSUER` | OIDC-Provider URL | `http://localhost:8080/realms/resource-planer` |
+| `AUTH_OIDC_CLIENT_ID` | OIDC Client-ID | `resource-planer` |
+| `AUTH_OIDC_CLIENT_SECRET` | OIDC Client-Secret | Secret vom Provider |
+| `API_KEY` | API-Key für externe Systeme | Beliebiger String |

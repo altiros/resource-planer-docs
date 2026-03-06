@@ -1,0 +1,35 @@
+# Mitarbeiter
+
+## Übersicht
+
+Die Mitarbeiterseite zeigt alle Benutzer im System mit ihren Rollen, Team-Zugehörigkeiten und Buchungsanzahl.
+
+Jeder Mitarbeiter hat eine **Systemrolle**, die seine Berechtigungen bestimmt:
+
+| Rolle | Beschreibung |
+|---|---|
+| **Admin** | Voller Zugriff: Mitarbeiter, Teams, Rollen und Buchungen verwalten |
+| **Manager** | Teams und Mitglieder verwalten, Buchungen erstellen |
+| **Mitarbeiter** | Buchungen erstellen, alles ansehen |
+
+## Mitarbeiter anlegen
+
+Nur Admins können neue Mitarbeiter anlegen.
+
+1. Klicken Sie auf **Neuer Mitarbeiter**
+2. Geben Sie Name, E-Mail (optional) und Rolle ein
+3. Klicken Sie auf **Anlegen**
+
+Mitarbeiter können mit oder ohne SSO-Account existieren:
+- **SSO-Benutzer** loggen sich über den OIDC-Provider ein
+- **Planungs-Ressourcen** existieren nur zur Planung und haben keinen Login
+
+## Arbeitszeiten
+
+Auf der Detailseite eines Mitarbeiters können Arbeitszeiten pro Wochentag definiert werden. Diese werden bei der automatischen Slot-Suche berücksichtigt.
+
+Standardmäßig: Mo-Fr, 08:00-17:00.
+
+## Funktionale Rollen
+
+Mitarbeitern können funktionale Rollen zugewiesen werden (z.B. Entwickler, Designer). Diese beschreiben Fähigkeiten und werden bei der Ressourcenplanung genutzt.

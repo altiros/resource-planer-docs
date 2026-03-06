@@ -1,0 +1,57 @@
+# Teams API
+
+## Alle Teams
+
+```
+GET /api/v1/teams
+```
+
+## Team anlegen
+
+```
+POST /api/v1/teams
+```
+
+```json
+{
+  "name": "Entwicklung",
+  "description": "Software-Entwicklungsteam",
+  "color": "#2563eb"
+}
+```
+
+## Team löschen
+
+```
+DELETE /api/v1/teams/:id
+```
+
+## Mitglieder verwalten
+
+```
+POST /api/v1/teams/:id/members
+```
+
+```json
+{ "userId": "user-id", "role": "MEMBER" }
+```
+
+**Team-Rollen:** `LEAD`, `MEMBER`
+
+```
+DELETE /api/v1/teams/:id/members?userId=user-id
+```
+
+## Funktionale Rollen zuweisen
+
+```
+POST /api/v1/teams/:id/roles
+```
+
+```json
+{ "roleId": "role-id" }
+```
+
+```
+DELETE /api/v1/teams/:id/roles?roleId=role-id
+```

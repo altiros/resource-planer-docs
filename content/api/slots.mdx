@@ -1,0 +1,52 @@
+# Slots API
+
+Die Slot-Suche findet freie Zeitfenster basierend auf Verfügbarkeit, Arbeitszeiten und bestehenden Buchungen.
+
+## Freie Slots suchen
+
+```
+POST /api/v1/slots
+```
+
+```json
+{
+  "resourceUserIds": ["user-id-1", "user-id-2"],
+  "teamIds": [],
+  "roleIds": ["role-id-1"],
+  "durationMinutes": 120,
+  "searchFrom": "2026-03-10",
+  "searchTo": "2026-03-20",
+  "preferredStartTime": "09:00",
+  "maxResults": 10
+}
+```
+
+**Parameter:**
+
+| Feld | Typ | Beschreibung |
+|---|---|---|
+| `resourceUserIds` | String[] | Benötigte Mitarbeiter |
+| `teamIds` | String[] | Benötigte Teams |
+| `roleIds` | String[] | Benötigte funktionale Rollen |
+| `durationMinutes` | Number | Gewünschte Dauer in Minuten |
+| `searchFrom` | ISO-Date | Suchzeitraum Start |
+| `searchTo` | ISO-Date | Suchzeitraum Ende |
+| `preferredStartTime` | String | Bevorzugte Startzeit (HH:mm) |
+| `maxResults` | Number | Max. Anzahl Ergebnisse |
+
+**Antwort:**
+
+```json
+{
+  "data": [
+    {
+      "date": "2026-03-12",
+      "startTime": "09:00",
+      "endTime": "11:00",
+      "availableUsers": [
+        { "id": "user-id-1", "name": "Anna Müller" }
+      ]
+    }
+  ]
+}
+```
