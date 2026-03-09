@@ -32,6 +32,31 @@ Der OIDC-Provider muss:
    - Redirect-URIs: `https://ihre-domain.com/*`
 3. Client-Secret kopieren und als `AUTH_OIDC_CLIENT_SECRET` setzen
 
+## Rollenverwaltung
+
+Der OIDC-Provider wird ausschließlich zur **Authentifizierung** genutzt. Die Autorisierung (Rollen) verwaltet die App selbst:
+
+- Rollen (Admin, Manager, Mitarbeiter) werden in der App-Datenbank gespeichert
+- Der **erste Benutzer**, der sich anmeldet, wird automatisch **Admin**
+- Alle weiteren Benutzer erhalten die Rolle **Mitarbeiter**
+- Admins können Rollen über die Mitarbeiterverwaltung ändern
+
+Es müssen keine Rollen oder Role-Mappings im OIDC-Provider konfiguriert werden.
+
 ## Account-Linking
 
-Wenn Benutzer vor dem ersten SSO-Login bereits in der Datenbank existieren (z.B. als Planungs-Ressource), werden die Accounts automatisch anhand der E-Mail-Adresse verknüpft.
+Mitarbeiter können als reine Planungs-Ressourcen (ohne Login) angelegt werden und nachträglich einen SSO-Zugang erhalten. Die Verknüpfung erfolgt automatisch über die **E-Mail-Adresse**.
+
+### Vorgehensweise
+
+1. **Mitarbeiter anlegen** (App): Admin erstellt einen Mitarbeiter mit Name und E-Mail-Adresse
+2. **Benutzer anlegen** (OIDC-Provider): Im Provider einen Benutzer mit **derselben E-Mail-Adresse** erstellen
+3. **Erster Login**: Beim ersten SSO-Login erkennt die App die E-Mail und verknüpft den OIDC-Account mit dem bestehenden Mitarbeiter
+
+Der Mitarbeiter behält dabei alle bestehenden Daten (Rolle, Team-Zugehörigkeiten, Buchungen, Arbeitszeiten).
+
+### Voraussetzungen
+
+- Die E-Mail-Adresse muss im OIDC-Provider **exakt** mit der E-Mail in der App übereinstimmen
+- Der Mitarbeiter muss eine E-Mail-Adresse haben (Mitarbeiter ohne E-Mail können nicht verknüpft werden)
+- Die E-Mail muss im OIDC-Provider als **verifiziert** markiert sein

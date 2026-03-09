@@ -24,6 +24,16 @@ Mitarbeiter können mit oder ohne SSO-Account existieren:
 - **SSO-Benutzer** loggen sich über den OIDC-Provider ein
 - **Planungs-Ressourcen** existieren nur zur Planung und haben keinen Login
 
+### Nachträgliches SSO-Login einrichten
+
+Eine Planungs-Ressource kann nachträglich einen SSO-Zugang erhalten:
+
+1. Stellen Sie sicher, dass der Mitarbeiter eine **E-Mail-Adresse** hat (ggf. in der Mitarbeiter-Detailseite ergänzen)
+2. Legen Sie im OIDC-Provider (z.B. Keycloak) einen Benutzer mit **derselben E-Mail-Adresse** an
+3. Beim ersten SSO-Login wird der OIDC-Account automatisch mit dem bestehenden Mitarbeiter verknüpft
+
+Alle Daten (Rolle, Teams, Buchungen, Arbeitszeiten) bleiben erhalten. Details siehe [OIDC-Provider konfigurieren](/administration/oidc#account-linking).
+
 ## Arbeitszeiten
 
 Auf der Detailseite eines Mitarbeiters können Arbeitszeiten pro Wochentag definiert werden. Diese werden bei der automatischen Slot-Suche berücksichtigt.
