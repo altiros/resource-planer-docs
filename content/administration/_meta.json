@@ -1,5 +1,6 @@
 {
   "deployment": "Deployment",
   "oidc": "OIDC-Provider",
-  "api-keys": "API-Keys"
+  "api-keys": "API-Keys",
+  "backup": "Backup & Restore"
 }

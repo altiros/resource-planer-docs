@@ -1,0 +1,41 @@
+# Backup & Restore
+
+Alle Daten können als JSON-Datei exportiert und wiederhergestellt werden. Die Funktion ist nur für Administratoren verfügbar.
+
+## Backup erstellen
+
+Unter **Einstellungen → Backup & Restore** auf **Backup herunterladen** klicken. Es wird eine Datei im Format `resource-planer-backup-YYYY-MM-DD.json` heruntergeladen.
+
+Das Backup enthält alle Daten der Anwendung:
+
+- Benutzer, Teams und Mitgliedschaften
+- Buchungen (inkl. zugewiesene Mitarbeiter und Teams)
+- Funktionsrollen
+- Arbeitszeitpläne
+- Einstellungen und API-Keys
+
+## Backup wiederherstellen
+
+1. Unter **Einstellungen → Backup & Restore** eine Backup-Datei auswählen
+2. Auf **Wiederherstellen** klicken
+3. Den Bestätigungsdialog bestätigen
+
+> **Achtung:** Alle bestehenden Daten werden beim Restore vollständig ersetzt. Es gibt kein automatisches Zwischen-Backup — vorher manuell exportieren.
+
+## Per API
+
+Das Backup kann auch über die REST-API erstellt und eingespielt werden (z.B. für automatisierte Backups):
+
+```bash
+# Export
+curl -H "Authorization: Bearer <api-key>" \
+  https://planer.example.com/api/v1/backup \
+  -o backup.json
+
+# Import
+curl -X POST \
+  -H "Authorization: Bearer <api-key>" \
+  -H "Content-Type: application/json" \
+  -d @backup.json \
+  https://planer.example.com/api/v1/backup
+```
