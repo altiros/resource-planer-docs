@@ -2,17 +2,59 @@
 
 Die Kalenderansicht zeigt alle Buchungen in einer Monatsübersicht. Jede Buchung wird farblich nach Typ oder Mitarbeiter dargestellt.
 
-## Navigation
+## Monatsübersicht
 
 - Verwenden Sie die Pfeile, um zwischen Monaten zu wechseln
-- Klicken Sie auf eine Buchung, um Details zu sehen
+- Klicken Sie auf einen **Tag**, um die Tagesdetailansicht zu öffnen
+- Klicken Sie auf eine **Buchung**, um die Buchungsdetails zu sehen
+
+## Filter
+
+Über die Dropdown-Menüs in der Kopfzeile können Buchungen gefiltert werden:
+
+- **Mitarbeiter** — Zeigt nur Buchungen eines bestimmten Mitarbeiters
+- **Team** — Zeigt nur Buchungen eines bestimmten Teams
+
+Es kann jeweils nur ein Filter aktiv sein. Die Filter gelten sowohl für die Monatsübersicht als auch für die Tagesdetailansicht.
+
+Die Mitarbeiter- und Team-Übersichtsseiten enthalten ebenfalls Links zum gefilterten Kalender.
+
+## Tagesdetailansicht
+
+Ein Klick auf einen Tag öffnet eine Zeitleiste mit allen Buchungen des Tages:
+
+- **Zeitachse** von 08:00 bis 18:00 (erweitert sich automatisch bei früheren/späteren Buchungen)
+- **Überlappende Buchungen** werden nebeneinander dargestellt
+- **Ganztägige Buchungen** (Urlaub, Krank) erscheinen basierend auf den Arbeitszeiten der zugewiesenen Mitarbeiter
+- **Kompakte Darstellung** für kurze Buchungen (≤ 60 Min.): Titel und Uhrzeit nebeneinander
+- Am **Wochenende** werden ganztägige Buchungen nicht angezeigt
+
+### Navigation
+
+- Pfeiltasten links/rechts zum Vor- und Zurückblättern zwischen Tagen
+- „Zurück zum Kalender" kehrt zur Monatsübersicht zurück
+- Aktive Filter bleiben bei der Navigation erhalten
+
+### Drag & Drop
+
+Buchungen können per Drag & Drop in der Zeitleiste verschoben werden:
+
+- **Klicken und ziehen** Sie eine Buchung nach oben oder unten, um die Uhrzeit zu ändern
+- Buchungen rasten in **15-Minuten-Schritten** ein
+- Die Änderung wird sofort gespeichert
+- **Konflikterkennung**: Wenn die neue Zeit einen Konflikt mit einer anderen Buchung verursacht, wird die Verschiebung abgelehnt und eine Meldung zeigt die kollidierenden Ressourcen
+- **Nicht verschiebbar** sind: ganztägige Buchungen und stornierte Buchungen
+- Ein kurzer Klick (ohne Ziehen) öffnet die Buchungsdetails
 
 ## Farbcodierung
 
 Die Farben werden nach Buchungstyp vergeben:
-- **Blau** - Projekte
-- **Grün** - Urlaub
-- **Rot** - Krankheit
-- **Lila** - Weiterbildung
-- **Orange** - Meetings
-- **Grau** - Sonstiges
+
+| Farbe | Typ |
+|---|---|
+| **Blau** | Projekte |
+| **Grün** | Urlaub |
+| **Rot** | Krankheit |
+| **Lila** | Weiterbildung |
+| **Orange** | Meetings |
+| **Grau** | Sonstiges |

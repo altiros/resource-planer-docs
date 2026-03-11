@@ -33,6 +33,20 @@ Buchungen sind der Kern der Ressourcenplanung. Sie beschreiben, wann welche Mita
 
 Bei Konflikten (Mitarbeiter ist bereits gebucht) wird eine Warnung angezeigt.
 
+## Buchung verschieben
+
+In der [Kalender-Tagesansicht](/benutzerhandbuch/kalender#drag--drop) können Buchungen per Drag & Drop zeitlich verschoben werden. Die Konflikterkennung verhindert dabei das Erzeugen von Überschneidungen.
+
+## Konflikterkennung
+
+Alle Buchungsänderungen — ob Erstellung, Bearbeitung oder Verschiebung per Drag & Drop — durchlaufen dieselbe Konflikterkennung:
+
+- **Direkte Konflikte**: Ein Mitarbeiter ist bereits in einer anderen Buchung zur selben Zeit eingeplant
+- **Team-Konflikte**: Ein Team ist bereits in einer anderen Buchung gebucht
+- **Indirekte Konflikte**: Ein Mitarbeiter ist über eine Team-Buchung bereits belegt
+
+Stornierte Buchungen werden bei der Konfliktprüfung ignoriert.
+
 ## Automatische Buchung
 
 Die automatische Slot-Suche findet freie Zeitfenster basierend auf:
